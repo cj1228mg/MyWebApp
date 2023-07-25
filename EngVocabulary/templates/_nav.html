@@ -1,0 +1,80 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+<div class="container">
+    <a class="navbar-brand" href="/"><img src="{% static 'quiz/img/logo_cat01.png' %}" alt="logo" width="40%" height="40%"></a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-content" aria-controls="navbar-content"
+    aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar-content">
+        <ul class="navbar-nav me-auto">
+            {% if user.is_authenticated %}
+            <li class="nav-item interval" >
+                <a href="{% url 'quiz:home' %}" class="nav-link">Home<span class="visually-hidden">(current)</span></a>
+            </li>
+            {% else %}
+            <li class="nav-item interval" >
+                <a href="/" class="nav-link">Home<span class="visually-hidden">(current)</span></a>
+            </li>
+            {% endif %}
+            {% if user.is_authenticated %}
+            <li class="nav-item interval dropdown">
+                <a href="#" class="nav-link dropdown-toggle" id="'quiz-dropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Quiz
+                </a>
+                <div class="dropdown-menu" aria-labelledby="quiz-dropdown">
+                    {% for category in category_list %}
+                        <a href="{% url 'quiz:start-quiz' category.category %}" class="dropdown-item">{{ category }}のクイズ</a>
+                    {% endfor %}
+                </div>
+            </li>
+            {% endif %}
+            <li class="nav-item interval dropdown">
+                <a href="#" class="nav-link dropdown-toggle" id="list-dropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    List
+                </a>
+                <div class="dropdown-menu" aria-labelledby="list-dropdown">
+                    {% for category in category_list %}
+                        <a href="{% url 'quiz:word-list' category %}" class="dropdown-item">{{ category }}の英単語一覧</a>
+                    {% endfor %}
+                    <a href="{% url 'quiz:word-list' '全ての英単語一覧' %}" class="dropdown-item">全ての英単語一覧</a>
+                </div>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item interval dropdown">
+                <a href="#" class="nav-link dropdown-toggle" id="flashcard-dropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Flashcard
+                </a>
+                <div class="dropdown-menu" aria-labelledby="flashcard-dropdown">
+                    {% for category in category_list %}
+                        <a href="{% url 'quiz:flashcard' category %}" class="dropdown-item">{{ category }}の英単語帳</a>
+                    {% endfor %}
+                </div>
+            </li>
+            {% endif %}
+            <li class="nav-item interval">
+                <a href="{% url 'quiz:inquiry' %}" class="nav-link">Inquiry</a>
+            </li>
+        </ul>
+
+
+        <ul class="navbar-nav">
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a href="{% url 'account_logout' %}" class="btn btn-dark">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a href="{% url 'account_signup' %}" class="btn btn-dark" style="margin-right: 1rem;">SignUp</a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'account_login' %}" class="btn btn-dark">LogIn</a>
+            </li>
+            {% endif %}
+        </ul>
+        
+    </div>
+</div>
+</nav>

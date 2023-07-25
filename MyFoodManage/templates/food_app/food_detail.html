@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block tab_title %} {{ tab_title }} {% endblock %}
+
+{% block contents %}
+<div class="container" style="margin-top: 4%;">
+    <div class="text-center">
+        <p class="display-5">{{ food_data.name }}の詳細</p>
+    </div>
+    <div class="row">
+        <div class="col shadow">
+            <table class="detail-table table-success">
+                <tr>
+                    <th>食材名</th>
+                    <td>{{ food_data.name }}</td>
+                </tr>
+                <tr>
+                    <th>カテゴリー</th>
+                    <td>{{ food_data.category }}</td>
+                </tr>
+                <tr>
+                    <th>賞味期限</th>
+                    {% if food_data.expiry_date == None %}
+                        <td></td>
+                    {% else %}
+                        <td>{{ food_data.expiry_date }}</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <th>消費期限</th>
+                    {% if food_data.expiration_date == None %}
+                        <td></td>
+                    {% else %}
+                        <td>{{ food_data.expiration_date }}</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <th>メモ</th>
+                    <td>{{ food_data.memo }}</td>
+                </tr>
+                <tr>
+                    <th>作成日</th>
+                    <td>{{ food_data.created_date }}</td>
+                </tr>
+                <tr>
+                    <th>更新日</th>
+                    <td>{{ food_data.updated_date }}</td>
+                </tr>
+            </table>
+
+            <div style="text-align: center; margin-top: 5%;">
+                <form method="post">
+                    <a href="{% url 'food_app:update_food' food_data.uuid %}" class="btn btn-primary" style="padding: 1.5% 6%; margin-right: 2%;">更新</a>
+                    <a href="{% url 'food_app:delete_food' food_data.uuid %}" class="btn btn-danger" style="padding: 1.5% 6%; margin-left: 2%;">削除</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

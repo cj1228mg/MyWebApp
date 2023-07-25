@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block tab_title %}
+    {{ tab_title }}
+{% endblock %}
+
+{% block contents %}
+
+<div class="kv-wrap">
+    <div class="kv" style="font-family: 'Yu Mincho';">
+        <p class="h1">購入した食材を徹底的に管理しよう！</p>
+
+        <div class="d-grid gap-2 col-3 mx-auto" style="margin-bottom: 2%; margin-top: 4%;">
+            <a href="{% url 'food_app:add_food' %}" class="btn btn-primary btn-lg" role="button">食材を追加</a>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="margin-top: 5%;">
+    
+    <div class="row">
+        <div class="col shadow">
+            {% if not expiry_date_list %}
+            <div class="text-center" style="margin-top: 1%; margin-bottom: 1%; font-family: 'Courier New', Courier, monospace;">
+                <p class="h4">現在、賞味期限切れの食材はありません</p>
+            </div>
+            {% else %}
+            <div style="margin-top: 1%; margin-bottom: 3%; font-family: 'Courier New', Courier, monospace;">
+                <p class="h4">賞味期限切れの食材</p>
+            </div>
+            <table class="table table-hover">
+                <tr class="text-center table-success">
+                    <th>食材名</th>
+                    <th>カテゴリー</th>
+                    <th>日付</th>
+                </tr>
+                {% for data in expiry_date_list %}
+                <tr class="text-center">
+                    {% if data.expiry_date is not None %}
+                        <td><a href="{% url 'food_app:food_detail' data.uuid %}" class="link-danger text-decoration-none">{{ data.name }}</a></td>
+                        <td>{{ data.category }}</td>
+                        <td>{{ data.expiry_date }}</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </table>
+            <div class="text-right">
+                <a href="{% url 'food_app:food_list' '賞味期限の一覧' %}">賞味期限の一覧</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>  
+
+    <div class="row">
+        <div class="col shadow" style="margin-top: 4%;">
+            {% if not expiration_date_list %}
+            <div class="text-center" style="margin-top: 1%; margin-bottom: 1%; font-family: 'Courier New', Courier, monospace;">
+                <p class="h4">現在、消費期限切れの食材はありません</p>
+            </div>
+            {% else %}
+            <div style="margin-top: 1%; margin-bottom: 3%; font-family: 'Courier New', Courier, monospace;">
+                <p class="h4">消費期限切れの食材</p>
+            </div>
+            <table class="table table-hover">
+                <tr class="text-center table-success">
+                    <th>食材名</th>
+                    <th>カテゴリー</th>
+                    <th>消費期限</th>
+                </tr>
+                {% for data in expiration_date_list %}
+                <tr class="text-center">
+                    {% if data.expiration_date is not None %}
+                        <td><a href="{% url 'food_app:food_detail' data.uuid %}" class="link-danger text-decoration-none">{{ data.name }}</a></td>
+                        <td>{{ data.category }}</td>
+                        <td>{{ data.expiration_date }}</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </table>
+            <div class="text-right">
+                <a href="{% url 'food_app:food_list' '消費期限の一覧' %}">消費期限の一覧</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

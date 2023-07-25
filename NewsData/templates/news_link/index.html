@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+{% load django_bootstrap5 %}
+{% load static %}
+
+{% block tab_title %} {{ tab_title }} {% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top: 2%;">
+
+    <div class="row">
+
+        <div class="col">
+            <div class="d-grid col-6 gap-2 mx-auto" style="margin-bottom: 22%; margin-top: 15%;">
+                <p class="display-6 text-center" style="font-family: 'Yu Mincho';">ニュースリンクを取得しよう！</p>
+                <form class="d-flex" action="{% url 'news_link:index' %}" method="post" name="search_keyword">
+                    {% csrf_token %}
+
+                    <div class="col-sm-9" style="margin-left: 8%;">
+                        {{ form_search_keyword.keyword | add_class:"form-control" }}
+                        {% for error in form_search_keyword.keyword.errors %}
+                            <span class="help-block">{{ error }}</span>
+                        {% endfor %}
+                    </div>  
+
+                    <div style="margin-left: 2%;">
+                    {% bootstrap_button content="検索" button_type="submit" %}
+                    </div>  
+                </form>
+                <hr>
+            </div>
+        </div>
+
+    <hr>
+
+    {% if news_title_link %}
+
+    <p class="h3" style="font-family: 'Yu Mincho';">{{ keyword }}のニュースリンク</p>
+        
+        <div class="col shadow" style="padding: 2%;">
+            {% for dict_data in news_title_link %}
+                <ul>
+                    <li><a href="{{ dict_data.リンク }}">{{ dict_data.タイトル }}</a></li>
+                </ul>
+            {% endfor %}
+        </div>
+
+        <form action="{% url 'news_link:download_csv' keyword %}" method="post" style="margin-top: 2%;">
+            {% csrf_token %}
+
+            {% for error in form_file_name.file_name.errors %}
+                <p class="alert alert-danger" style="margin-top: 1%; margin-bottom: 2%;">{{ error }}</p>
+            {% endfor %}
+
+            {% if message %}
+                <div class="alert alert-primary">
+                    <p style="margin: 0; font-family: 'Yu Mincho';">{{ message }}</p>
+                </div>            
+            {% endif %}
+
+            <div class="col-sm-2">
+                {{ form_file_name.file_name | add_class:"form-control" }}
+            </div>
+
+            <input type="submit" name="create_csvfile" value="csvファイルに変換" class="btn btn-primary" style="margin-top: 2%; margin-bottom: 3%;">
+        </form>
+    {% endif %}
+    </div>  
+</div>
+{% endblock %}
+

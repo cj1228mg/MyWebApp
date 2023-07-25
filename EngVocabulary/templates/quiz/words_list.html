@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{% if category == "全ての英単語一覧" %}
+    {{ category }} | CJ Django Study
+{% else %}
+    {{ category }}の英単語一覧 | CJ Django Study
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="py-4">
+    <div class="container text-center" style="padding-top: 2%;">
+        {% if category == "全ての英単語一覧" %}
+            <h2>{{ category }}</h2>
+        {% else %}
+            <h2>{{ category }}の英単語一覧</h2>
+        {% endif %}
+    </div>
+    <div class="table-responsive">
+        <table class="table table-margin table-striped table-bordered">
+            <thead class="table-dark text-center">
+                <tr>
+                    <th scope="col">番号</th>
+                    <th scope="col">日本語</th>
+                    <th scope="col">英語</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                {% for item in category_obj %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ item.japanese }}</td>
+                    <td>{{ item.english }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% if is_paginated %}
+    <div class="container">
+        <ul class="pagination pagination-lg justify-content-center">
+            <!-- 前ページへのリンク -->
+            {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a href="?page={{ page_obj.previous_page_number }}" class="page-link">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+
+            <!-- ページ数表示 -->
+            {% for page_num in page_obj.paginator.page_range %}
+                {% if page_obj.number == page_num %}
+                    <li class="page-item active">
+                        <a href="#" class="page-link">{{ page_num }}</a>
+                    </li>
+                {% else %}
+                    <li class="page-item">
+                        <a href="?page={{ page_num }}" class="page-link">{{ page_num }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            <!-- 次のページへのリンク -->
+            {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a href="?page={{ page_obj.next_page_number }}" class="page-link">
+                        <span aria_hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+    {% endif %}
+    
+</div>
+{% endblock %}

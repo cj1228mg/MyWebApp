@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block tab_title %} {{ tab_title }} {% endblock %}
+
+{% block contents %}
+
+<div class="container" style="margin-top: 5%;">
+    <div class="row">
+        <div class="col shadow">
+            <div class="text-center" style="margin-top: 1%; margin-bottom: 3%; font-family: 'Courier New', Courier, monospace;">
+                <p class="display-6">{{ id_str }}</p>
+            </div>
+            <table class="table table-hover">
+                <tr class="text-center table-success">
+                    <th>食材名</th>
+                    <th>カテゴリー</th>
+                    {% if id_str == "食材全一覧" %}
+                        <th>賞味期限</th>
+                        <th>消費期限</th>
+                    {% else %}
+                        <th>日付</th>
+                    {% endif %}
+                </tr>
+                {% for data in food_data %}
+                <tr class="text-center">
+                    <td><a href="{% url 'food_app:food_detail' data.uuid %}" class="link-danger text-decoration-none">{{ data.name }}</a></td>
+                    <td>{{ data.category }}</td>
+                    {% if id_str == "食材全一覧" %}
+                        <td>{{ data.expiry_date }}</td>
+                        <td>{{ data.expiration_date }}</td>
+
+                    {% elif id_str == "賞味期限の一覧" %}
+                        <td>{{ data.expiry_date }}</td>
+                    {% elif id_str == "消費期限の一覧" %}
+                        <td>{{ data.expiration_date }}</td>
+                    {% else %}
+                        <td>データがありません</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+    </div>  
+</div>
+
+{% endblock %}

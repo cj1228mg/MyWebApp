@@ -1,0 +1,5 @@
+django
+django-environ
+django-widget-tweaks
+django-bootstrap4
+django-bootstrap-datepicker-plus

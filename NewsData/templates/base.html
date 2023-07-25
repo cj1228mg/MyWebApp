@@ -1,0 +1,22 @@
+{% load static %}
+{% load django_bootstrap5 %}
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>{% block tab_title %} {{ tab_title }} {% endblock %}</title>
+
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
+<body>
+    {% include '_header.html' %}
+
+
+    {% block content %}
+        <p>現在コンテンツがありません。</p>
+    {% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %} 結果 {% endblock %}
+
+{% block content %}
+<div class="py-4">
+    <div class="text-center" style="margin-top: 10%">
+        <p class="fs-2">あなたの答えは{{ message }}です。</p>
+        {% with prev=words.get_previous_by_pk %}
+            {% if prev %}
+                <a href="{% url 'quiz:quiz' prev.category prev.pk %}" class="btn btn-primary">前の問題</a>
+            {% endif %}
+        {% endwith %}
+        {% with next=words.get_next_by_pk %}
+            {% if next %}
+                <a href="{% url 'quiz:quiz' next.category next.pk %}" class="btn btn-primary">次の問題</a>
+            {% endif %}
+        {% endwith %}
+    </div>
+</div>
+{% endblock %}

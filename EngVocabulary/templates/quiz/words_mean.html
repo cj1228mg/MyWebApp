@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ words.english }}の意味 | CJ Django Study {% endblock %}
+
+{% block content %}
+<div style="padding-top: 10rem">
+    <div class="card text-center" style="margin-left: 35%; max-width: 30%;">
+        <div class="card-header">
+            <h4>{{ words.english }}の意味</h4>
+        </div>
+        <div class="card-body">
+            <p style="margin-top: 1rem;" class="fs-3">{{ words.japanese }}</p>
+        </div>
+        <div class="card-footer">
+            <a href="{% url 'quiz:flashcard' category %}" class="btn btn-primary" role="button">戻る</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

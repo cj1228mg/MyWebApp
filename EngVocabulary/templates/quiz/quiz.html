@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ category }} {% endblock %}
+
+{% block content %}
+<div class="py-4" style="width: 50%; margin-left: 34%; margin-top: 10%;">
+    <div class="justify-content-center">
+        <p class="fs-3">{{ words.english }}の意味を答えてください。</p>
+    <form method="post">
+        {% csrf_token %}
+
+        {{ form.non_fields_errors }}
+
+        {% for field in form %}
+            <label for="{{ field.id_for_label }}" class="col-sm-4 col-form-label">
+                <strong>{{ field.label_tag }}</strong>
+            </label>
+            <div class="col-sm-8">
+                {{ field }}
+                {{ field.errors }}
+            </div>
+        {% endfor %}
+
+        <div style="margin-top: 1.5rem;">
+            <button class="btn btn-primary" type="submit">送信</button>
+        </div>
+    </form>
+    </div>
+</div>
+{% endblock %}

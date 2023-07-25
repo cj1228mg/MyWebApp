@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %} 英語を学ぶために英単語をしっかり覚えよう！ | CJ Django Study {% endblock %}
+
+{% block content %}
+<header class="masthead d-flex align-items-center">
+    {% if user.is_authenticated %}
+    <div class="container px-4 px-lg-5 text-center">
+        <h1 style="color: black;">Let's Start Quiz</h1>
+ 
+        <li class="interval dropdown" style="list-style-type: none;">
+            <a href="#" class="dropdown-toggle btn btn-primary btn-xl" id="'quiz-dropdown2" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Quiz
+            </a>
+            <div class="dropdown-menu" aria-labelledby="quiz-dropdown2">
+                {% for category in category_list %}
+                    <a href="{% url 'quiz:start-quiz' category.category %}" class="dropdown-item">{{ category }}のクイズ</a>
+                {% endfor %}
+            </div>
+        </li>
+        
+    </div>
+    {% else %}
+    <div class="container px-4 px-lg-5 text-center">
+        <h1>Improve your English with words!</h1>
+        <a href="{% url 'account_login' %}" class="btn btn-primary btn-xl">Login</a>
+    </div>
+    {% endif %}
+</header>
+{% endblock %}

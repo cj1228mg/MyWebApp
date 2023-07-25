@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %} メールの確認 | CJ Django Study{% endblock %}
+
+{% block content %}
+<div class="py-4 text-center">
+    <h1>ユーザー登録</h1>
+
+    {% if confirmation %}
+    <p>ユーザー登録を確定するには、以下のボタンを押してください。</p>
+    <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+        {% csrf_token %}
+        <button class="btn btn-primary" type="submit">確定</button>
+    
+    {% else %}    
+
+        {% url 'account_email' as email_url %}
+
+        <p>リンクの有効期限が過ぎています。<a href="{{ email_ulr }}">再申請</a></p>
+
+    </form>
+    {% endif %}
+</div>
+{% endblock %}

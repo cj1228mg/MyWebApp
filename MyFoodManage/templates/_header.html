@@ -1,0 +1,27 @@
+<nav class="navbar navbar-expand-lg navbar-light" style="box-shadow: 0 0 0 1px;">
+    <div class="container-fluid">
+        <a href="/" class="navbar-brand" style="font-family: 'Yu Mincho';">Food Manage - フードマネージ</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav4" aria-controls="navbarNav4" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav4">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a href="/" class="nav-link">トップ</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'food_app:food_list' '食材全一覧' %}" class="nav-link">食材全一覧</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'food_app:food_list' '賞味期限の一覧' %}" class="nav-link">賞味期限の一覧</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'food_app:food_list' '消費期限の一覧' %}" class="nav-link">消費期限の一覧</a>
+                </li>
+                <!-- <li class="nav-item">
+                    <a href="#" class="nav-link">このアプリについて</a>
+                </li> -->
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,6 @@
+django
+django-widget-tweaks
+django-environ
+django-bootstrap5
+beautifulsoup4
+requests

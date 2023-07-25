@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{ category }}の英単語帳 {% endblock %}
+
+{% block content %}
+<div class="py-4">
+    <h2 class="text-center" style="margin-bottom: 2rem;">{{ category }}の英単語帳</h2>
+    <div style="margin-left: 39.5%;">
+
+        {% for flashcard in flashcard_obj %}
+        <div class="card mb-3 text-dark bg-light border-dark" style="max-width: 18rem; text-align: center; font-size: larger;">
+            <div class="card-body">
+                <p>{{ flashcard.english }}</p>
+                <a class="btn btn-primary" href="{% url 'quiz:words-mean' category flashcard.pk %}">意味</a>
+            </div>
+        </div>
+        {% endfor %}
+        
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'quiz/js/my_javascript.js' %}"></script>
+{% endblock %}
